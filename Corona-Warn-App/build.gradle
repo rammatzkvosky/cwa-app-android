@@ -22,7 +22,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
-apply plugin: 'jacoco'
 
 android {
     ndkVersion "21.2.6472646"
@@ -106,6 +105,7 @@ android {
                 buildConfigField "String", "TRUSTED_CERTS_EXPORT_KEYSTORE_PW", "\"$TRUSTED_CERTS_EXPORT_KEYSTORE_PW\""
             }
             println "SECRET END"
+            testCoverageEnabled true
         }
     }
 
@@ -166,13 +166,6 @@ android {
         exclude 'CODE_OF_CONDUCT.md'
     }
 
-}
-
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDeviceReleaseUnitTest']) {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
 }
 
 dependencies {
