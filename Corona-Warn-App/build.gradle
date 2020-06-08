@@ -83,7 +83,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            testCoverageEnabled (project.hasProperty('jacocoCoverage') ? true : false)
             buildConfigField "String", "EXPORT_SIGNATURE_ID", "\"de.rki.coronawarnapp-dev\""
         }
     }
