@@ -34,14 +34,11 @@ jobs:
       - save-build-cache
       - save_cache:
           paths:
-           - ~/.gradle
+            - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "Corona-Warn-App/build.gradle" }}-{{ checksum  "Server-Protocol-Buffer/build.gradle" }}
       - store_artifacts:
           path: Corona-Warn-App/build/reports
           destination: reports
-      - store_artifacts:
-          path: Corona-Warn-App/build/jacoco
-          destination: jacoco
       - store_test_results:
           path: Corona-Warn-App/build/test-results
 workflows:
