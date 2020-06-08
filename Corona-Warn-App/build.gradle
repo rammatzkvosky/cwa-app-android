@@ -146,6 +146,38 @@ android {
 
 }
 
+task jacocoTestReportDeviceRelease(type: JacocoReport, dependsOn: 'testDeviceReleaseUnitTest') {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports for the DeviceRelease build."
+
+    reports {
+        html.enabled = true
+        xml {
+            enabled = true
+            destination file("$buildDir/deviceRelease/jacoco.xml")
+        }
+    }
+
+    def excludes = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*'
+    ]
+
+    def debugTree = fileTree(dir: "$buildDir/intermediates/classes/DeviceRelease", excludes: excludes)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    getSourceDirectories().from(files([mainSrc]))
+    getClassDirectories().from(files([debugTree]))
+    getExecutionData().from(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDeviceReleaseUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ]))
+}
+
 dependencies {
     // KOTLIN
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
