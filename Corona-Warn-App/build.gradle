@@ -165,17 +165,19 @@ task jacocoTestReportDeviceRelease(type: JacocoReport, dependsOn: 'testDeviceRel
             '**/BuildConfig.*',
             '**/Manifest*.*',
             '**/*Test*.*',
-            'android/**/*.*'
+            'android/**/*.*',
+            '**/*$$*',
     ]
 
     def classPaths = [
         "**/intermediates/classes/deviceRelease/**",
         "**/intermediates/javac/deviceRelease/*/classes/**", // Android Gradle Plugin 3.2.x support.
-        "**/intermediates/javac/deviceRelease/classes/**" // Android Gradle Plugin 3.4 and 3.5 support.
+        "**/intermediates/javac/deviceRelease/classes/**", // Android Gradle Plugin 3.4 and 3.5 support.
+        "**/tmp/kotlin-classes/deviceRelease/**"
     ]
 
     def debugTree = fileTree(dir: "$buildDir", includes: classPaths, excludes: excludes)
-    def mainSrc = "${project.projectDir}/src/main/java"
+    def mainSrc = "src/main/java"
 
     getSourceDirectories().from(files([mainSrc]))
     getClassDirectories().from(files([debugTree]))
